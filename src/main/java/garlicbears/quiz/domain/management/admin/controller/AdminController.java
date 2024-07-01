@@ -50,8 +50,8 @@ public class AdminController {
 	 * 유효한 관리자 정보를 전달받아 액세스 토큰과 리프레시 토큰을 발급.
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<Void> login(@Valid @RequestBody LoginDto loginDto, BindingResult bindingResult) {
-		bindingResult.getAllErrors().forEach(error -> logger.warning(error.toString()));
+	public ResponseEntity<?> login(@Valid @RequestBody LoginDto loginDto, BindingResult bindingResult) {
+
 		if (bindingResult.hasErrors()) {
 			throw new CustomException(ErrorCode.INVALID_INPUT);
 		}
@@ -77,14 +77,14 @@ public class AdminController {
 		headers.set("Access-Token", accessToken);
 		headers.set("Refresh-Token", refreshToken);
 
-		return ResponseEntity.ok().headers(headers).build();
+		return ResponseEntity.ok().headers(headers).body(ResponseDto.success());
 	}
 
 	/**
 	 * 리프레시 토큰을 이용해 새로운 액세스 토큰을 발급.
 	 */
 	@PostMapping("/refreshToken")
-	public ResponseEntity<Void> requestRefresh(@RequestBody RefreshTokenDto refreshTokenDto) {
+	public ResponseEntity<?> requestRefresh(@RequestBody RefreshTokenDto refreshTokenDto) {
 		// 리프레시 토큰 유효성 확인
 		Claims claims = jwtTokenizer.parseRefreshToken(refreshTokenDto.getRefreshToken());
 		String email = claims.getSubject();
@@ -93,17 +93,17 @@ public class AdminController {
 		refreshTokenService.findRefreshToken(email)
 			.orElseThrow(() -> new CustomException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
-		long userId = Long.valueOf((Integer) claims.get("id"));
+		long adminId = Long.valueOf((Integer) claims.get("id"));
 		List roles = (List) claims.get("roles");
 
 		// AccessToken 발급
-		String accessToken = jwtTokenizer.createAccessToken(email, userId, roles);
+		String accessToken = jwtTokenizer.createAccessToken(email, adminId, roles);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Access-Token", accessToken);
 		headers.set("Refresh-Token", refreshTokenDto.getRefreshToken());
 
-		return ResponseEntity.ok().headers(headers).build();
+		return ResponseEntity.ok().headers(headers).body(ResponseDto.success());
 	}
 
 	/**

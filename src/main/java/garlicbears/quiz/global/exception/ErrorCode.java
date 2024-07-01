@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 	INVALID_INPUT(HttpStatus.BAD_REQUEST, "입력 값이 유효하지 않습니다."),
 	BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
 	MISSING_REQUIRED_FIELDS(HttpStatus.BAD_REQUEST, "필수 입력값이 누락되었습니다."),
 	ILLEGAL_RATING_VALUE(HttpStatus.BAD_REQUEST, "별점 값은 0 과 5 사이여야 합니다."),
 	MISSING_REQUEST_BODY_VARIABLE(HttpStatus.BAD_REQUEST, "요청 내용의 필드가 누락되었습니다."),
