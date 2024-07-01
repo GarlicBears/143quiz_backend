@@ -12,15 +12,17 @@ public class ResponseTopicDto {
 	private LocalDateTime topicCreationDate;
 	private LocalDateTime topicUpdateDate;
 	private int topicUsageCount;
+	private long topicQuestionCount;
 
 	public ResponseTopicDto(long topicId, String topicText, Active topicStatus, LocalDateTime topicCreationDate,
-		LocalDateTime topicUpdateDate, int topicUsageCount) {
+		LocalDateTime topicUpdateDate, int topicUsageCount, long topicQuestionCount) {
 		this.topicId = topicId;
 		this.topicText = topicText;
 		this.topicStatus = topicStatus.toString();
 		this.topicCreationDate = topicCreationDate;
 		this.topicUpdateDate = topicUpdateDate;
 		this.topicUsageCount = topicUsageCount;
+		this.topicQuestionCount = topicQuestionCount;
 	}
 
 	public long getTopicId() {
@@ -47,8 +49,7 @@ public class ResponseTopicDto {
 		return topicUsageCount;
 	}
 
-	public static ResponseTopicDto fromTopic(Topic topic) {
-		return new ResponseTopicDto(topic.getTopicId(), topic.getTopicTitle(), topic.getTopicActive(),
-			topic.getCreatedAt(), topic.getUpdatedAt(), topic.getTopicUsageCount());
+	public long getTopicQuestionCount() {
+		return topicQuestionCount;
 	}
 }

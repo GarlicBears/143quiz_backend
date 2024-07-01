@@ -1,4 +1,4 @@
-package garlicbears.quiz.domain.game.user.repository;
+package garlicbears.quiz.domain.game.common.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

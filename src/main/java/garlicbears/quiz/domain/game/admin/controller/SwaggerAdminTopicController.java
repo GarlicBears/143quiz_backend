@@ -38,7 +38,7 @@ public interface SwaggerAdminTopicController {
 	public ResponseEntity<?> createTopicsByExcel(
 		@Parameter(description = "multipart/form-data 형식의 엑셀 파일을 받습니다.",
 			content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE))
-		@RequestPart("multipartFile") MultipartFile file);
+		@RequestPart("excel") MultipartFile file);
 
 	@Operation(summary = "주제 생성", description = "입력된 주제를 생성합니다.",
 		requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(schemaProperties = {

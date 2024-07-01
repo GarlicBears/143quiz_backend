@@ -43,8 +43,8 @@ public class TopicService {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Page<ResponseTopicDto> page = topicRepository.findTopics(pageNumber, pageSize, sort, pageable);
 
-		return ResponseTopicListDto.fromTopics(page.getContent(), sort, pageNumber, pageSize, page.getTotalPages(),
-			page.getTotalElements());
+		return new ResponseTopicListDto(sort, pageNumber, pageSize, page.getTotalPages(),
+			page.getTotalElements(), page.getContent());
 	}
 
 	public TopicExcelUploadedDto saveTopicWithExcel(MultipartFile file) {

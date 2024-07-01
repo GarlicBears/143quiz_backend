@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 public interface SwaggerUserController {
@@ -48,7 +49,8 @@ public interface SwaggerUserController {
 	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully retrieved", content = {
 		@Content(schema = @Schema(implementation = ResponseUserDto.class))}),
 		@ApiResponse(responseCode = "403", description = "Forbidden (Invalid token)")})
-	public ResponseEntity<?> searchUser(@AuthenticationPrincipal PrincipalDetails principalDetails);
+	public ResponseEntity<?> searchUser(@AuthenticationPrincipal PrincipalDetails principalDetails,
+		HttpServletRequest request);
 
 	@Operation(summary = "유저 정보(내 정보) 수정", description = "jwt token을 받아 유저 정보를 확인. resquest body로 전달받은 정보로 수정합니다.")
 	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully retrieved", content = {

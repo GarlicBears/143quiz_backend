@@ -2,22 +2,22 @@ package garlicbears.quiz.domain.game.admin.dto;
 
 import java.util.List;
 
-public class ResponseTopicListDto {
+public class GameStatListDto {
 	private String sort;
 	private int pageNumber;
 	private int pageSize;
 	private int totalPage;
 	private long totalCount;
-	private List<ResponseTopicDto> topics;
+	private List<GameStatDto> stats;
 
-	public ResponseTopicListDto(String sort, int pageNumber, int pageSize, int totalPage, long totalCount,
-		List<ResponseTopicDto> topics) {
+	public GameStatListDto(String sort, int pageNumber, int pageSize, int totalPage, long totalCount,
+		List<GameStatDto> stats) {
 		this.sort = sort;
 		this.pageNumber = pageNumber;
 		this.pageSize = pageSize;
 		this.totalPage = totalPage;
 		this.totalCount = totalCount;
-		this.topics = topics;
+		this.stats = stats;
 	}
 
 	public String getSort() {
@@ -40,7 +40,7 @@ public class ResponseTopicListDto {
 		return totalCount;
 	}
 
-	public List<ResponseTopicDto> getTopics() {
-		return topics;
+	public List<GameStatDto> getStats() {
+		return stats;
 	}
 }

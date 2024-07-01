@@ -37,7 +37,9 @@ public class AdminQueryRepositoryImpl implements AdminQueryRepository {
 			.select(Projections.constructor(ResponseAdminDto.class,
 				admin.adminId,
 				admin.adminEmail,
-				admin.active
+				admin.active,
+				admin.createdAt,
+				admin.updatedAt
 			))
 			.from(admin)
 			.orderBy(getOrderSpecifier(admin, sortBy))

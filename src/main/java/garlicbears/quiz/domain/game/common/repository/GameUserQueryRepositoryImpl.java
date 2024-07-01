@@ -1,4 +1,4 @@
-package garlicbears.quiz.domain.game.user.repository;
+package garlicbears.quiz.domain.game.common.repository;
 
 import java.util.List;
 import java.util.stream.Collectors;

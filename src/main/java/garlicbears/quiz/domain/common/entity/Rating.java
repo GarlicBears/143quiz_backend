@@ -31,7 +31,6 @@ public class Rating {
 	private double ratingValue;
 
 	@Column(name = "rating_at", nullable = false)
-	@ColumnDefault("CURRENT_TIMESTAMP")
 	private LocalDateTime ratingDate;
 
 	public Rating() {

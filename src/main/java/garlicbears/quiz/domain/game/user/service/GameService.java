@@ -27,30 +27,15 @@ import garlicbears.quiz.global.exception.ErrorCode;
 @Service
 public class GameService {
 	private static final Logger logger = Logger.getLogger(GameService.class.getName());
-	private final UserRepository userRepository;
 	private final GameSessionRepository gameSessionRepository;
 	private final QuestionRepository questionRepository;
 	private final TopicRepository topicRepository;
 
-	public GameService(UserRepository userRepository, GameSessionRepository gameSessionRepository,
+	public GameService(GameSessionRepository gameSessionRepository,
 		QuestionRepository questionRepository, TopicRepository topicRepository) {
-		this.userRepository = userRepository;
 		this.gameSessionRepository = gameSessionRepository;
 		this.questionRepository = questionRepository;
 		this.topicRepository = topicRepository;
-	}
-
-	public List<UserRankingDto> getRankings(int pageNumber, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-
-		return userRepository.findRankings(pageable).getContent();
-	}
-
-	public List<UserRankingDto> getRankingsByTopicId(long topicId, int pageNumber, int pageSize) {
-
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-
-		return userRepository.findRankingsByTopicId(topicId, pageable).getContent();
 	}
 
 	@Transactional

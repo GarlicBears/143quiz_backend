@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import garlicbears.quiz.domain.common.dto.ResponseDto;
 import garlicbears.quiz.domain.common.entity.User;
+import garlicbears.quiz.domain.common.service.LogService;
 import garlicbears.quiz.domain.management.common.dto.ResponseUserDto;
 import garlicbears.quiz.domain.management.user.dto.SignUpDto;
 import garlicbears.quiz.domain.management.user.dto.UpdateUserDto;
@@ -25,7 +26,9 @@ import garlicbears.quiz.domain.management.user.service.UserService;
 import garlicbears.quiz.global.config.auth.PrincipalDetails;
 import garlicbears.quiz.global.exception.CustomException;
 import garlicbears.quiz.global.exception.ErrorCode;
+import garlicbears.quiz.global.handler.ClientIpHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -35,12 +38,14 @@ public class UserController implements SwaggerUserController {
 	private static final Logger logger = Logger.getLogger(UserController.class.getName());
 	private final UserService userService;
 	private final UserRatingService userRatingService;
+	private final LogService logService;
 
 	@Autowired
 	UserController(UserService userService,
-		UserRatingService userRatingService) {
+		UserRatingService userRatingService, LogService logService) {
 		this.userService = userService;
 		this.userRatingService = userRatingService;
+		this.logService = logService;
 	}
 
 	/**
@@ -93,11 +98,12 @@ public class UserController implements SwaggerUserController {
 	}
 
 	@GetMapping("/")
-	public ResponseEntity<?> searchUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+	public ResponseEntity<?> searchUser(@AuthenticationPrincipal PrincipalDetails principalDetails,
+		HttpServletRequest request) {
 		// 현재 인증된 사용자의 정보를 principalDetails로부터 가져올 수 있습니다.
 		User user = principalDetails.getUser();
 
-		System.out.println(user);
+		logService.log(user, request.getRequestURI(), ClientIpHandler.getClientIp(request));
 
 		return ResponseEntity.ok(ResponseUserDto.fromUser(user));
 	}
