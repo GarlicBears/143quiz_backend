@@ -5,6 +5,9 @@ package garlicbears.quiz.domain.game.user.dto;
  */
 
 public class ResponseUserAnswerDto {
+	private long topicId;
+	private String topicTitle;
+	private String imageUrl;
 
 	private long totalQuestions;
 
@@ -15,11 +18,26 @@ public class ResponseUserAnswerDto {
 	public ResponseUserAnswerDto() {
 	}
 
-	public ResponseUserAnswerDto(long totalQuestions,
+	public ResponseUserAnswerDto(Long topicId, String topicTitle, String imageUrl, long totalQuestions,
 		int userHeartsCount, boolean getBadge) {
+		this.topicId = topicId;
+		this.topicTitle = topicTitle;
+		this.imageUrl = imageUrl;
 		this.totalQuestions = totalQuestions;
 		this.userHeartsCount = userHeartsCount;
 		this.getBadge = getBadge;
+	}
+
+	public long getTopicId() {
+		return topicId;
+	}
+
+	public String getTopicTitle() {
+		return topicTitle;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
 	public long getTotalQuestions() {

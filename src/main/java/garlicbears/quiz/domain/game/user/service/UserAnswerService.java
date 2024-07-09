@@ -79,7 +79,8 @@ public class UserAnswerService {
 		// 보상 저장
 		rewardRepository.save(reward);
 
-		return new ResponseUserAnswerDto(totalQuestions, updatedHeartsCount, badgeStatusUpdated);
+		return new ResponseUserAnswerDto(topic.getTopicId(), topic.getTopicTitle(),
+			topic.getTopicImage().getAccessUrl(), totalQuestions, updatedHeartsCount, badgeStatusUpdated);
 	}
 
 	/**
